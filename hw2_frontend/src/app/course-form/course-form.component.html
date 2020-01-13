@@ -1,0 +1,41 @@
+<form [formGroup]="courseFormGroup" class="course-form">
+  <mat-form-field>
+    <input matInput type="text" placeholder="Name" formControlName="name" required>
+    <mat-hint align="end">The name of the course</mat-hint>
+    <mat-error *ngIf="courseFormGroup.controls.name.hasError('required')">Name is required</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select placeholder="Type" formControlName="type">
+      <mat-option [value]="null">Unknown</mat-option>
+      <mat-option [value]="type.key"
+                  *ngFor="let type of typeService.typeNames | keyvalue">{{type.value}}</mat-option>
+    </mat-select>
+    <mat-hint align="end">The type of the course</mat-hint>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-select placeholder="University"
+                formControlName="university">
+      <mat-option [value]="null">Unknown</mat-option>
+      <mat-option [value]="universityOption.id" *ngFor="let
+universityOption of universityOptions">{{universityOption.name}}</mat-option>
+    </mat-select>
+    <mat-hint align="end">The university of the course</mat-hint>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select placeholder="Professors"
+                formControlName="professor" multiple>
+      <mat-option [value]="professorOption.id" *ngFor="let
+professorOption of professorOptions">{{professorOption.name}}</mat-option>
+    </mat-select>
+    <mat-hint align="end">The professor of the course</mat-hint>
+  </mat-form-field>
+  <br/>
+  <mat-card-actions align="center">
+    <button mat-raised-button color="primary" [disabled]="!courseFormGroup.valid" (click)="createCourse()">
+      <span *ngIf="!courseFormGroup.controls.id.value">Create</span>
+      <span *ngIf="courseFormGroup.controls.id.value">Update</span>
+    </button>
+  </mat-card-actions>
+
+</form>

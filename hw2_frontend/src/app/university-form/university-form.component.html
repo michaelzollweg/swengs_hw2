@@ -1,0 +1,20 @@
+<form [formGroup]="universityFormGroup" class="university-form">
+  <mat-form-field>
+    <input matInput type="text" placeholder="Name" formControlName="name" required>
+    <mat-hint align="end">The name of the university</mat-hint>
+    <mat-error *ngIf="universityFormGroup.controls.name.hasError('nameError')">No Numbers in Name</mat-error>
+    <mat-error *ngIf="universityFormGroup.controls.name.hasError('required')">Name is required</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput type="text" placeholder="Location" formControlName="location">
+    <mat-hint align="end">The location of the university</mat-hint>
+  </mat-form-field>
+  <br/>
+  <mat-card-actions align="center">
+    <button mat-raised-button color="primary" [disabled]="!universityFormGroup.valid" (click)="createUniversity()">
+      <span *ngIf="!universityFormGroup.controls.id.value">Create</span>
+      <span *ngIf="universityFormGroup.controls.id.value">Update</span>
+    </button>
+  </mat-card-actions>
+
+</form>
